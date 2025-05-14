@@ -4,8 +4,6 @@ const API_BASE_URL = "http://localhost:8085";
 const bookForm = document.getElementById("book-register-form");
 const bookTableBody = document.getElementById("bookTableBody");
 
-document.addEventListener("DOMContentLoaded", loadBooks);
-
 bookForm.addEventListener("submit", (e) => {
   e.preventDefault();
   console.log("Form 제출 되었음...");
@@ -58,7 +56,7 @@ const loadBooks = async () => {
   console.log("책 목록 로드 중.....");
 
   try {
-    const response = await fetch.get(`${API_BASE_URL}/api/books`);
+    const response = await fetch(`${API_BASE_URL}/api/books`);
     if (!response.ok) {
       throw new Error("책 목록을 불러오는 데 실패했습니다.");
     }
@@ -79,3 +77,5 @@ const loadBooks = async () => {
     console.error(e);
   }
 };
+
+document.addEventListener("DOMContentLoaded", loadBooks);
