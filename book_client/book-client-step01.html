@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Book Service</h1>
+    <div>
+      <h2>책 정보 입력</h2>
+      <form>
+        <div>
+          <label for="book-title">제목: </label>
+          <input
+            id="book-title"
+            name="book-title"
+            type="text"
+            placeholder="제목 입력"
+          />
+        </div>
+        <div>
+          <label for="book-author">저자: </label>
+          <input
+            id="book-author"
+            name="book-author"
+            type="text"
+            placeholder="저자 입력"
+          />
+        </div>
+        <div>
+          <label for="book-isbn">ISBN: </label>
+          <input
+            id="book-isbn"
+            name="book-isbn"
+            type="number"
+            placeholder="ISBN 입력"
+          />
+        </div>
+        <div>
+          <label for="book-price">가격: </label>
+          <input
+            id="book-price"
+            name="book-price"
+            type="number"
+            placeholder="가격 입력(원)"
+          />원
+        </div>
+        <div>
+          <label for="book-publish-date">발행일: </label>
+          <input
+            type="date"
+            id="book-publish-date"
+            name="book-publish-date"
+            placeholder="발행일"
+          />
+        </div>
+        <button type="submit">등록</button>
+      </form>
+
+      <h2>책 목록</h2>
+      <table>
+        <tr>
+          <th>제목</th>
+          <th>저자</th>
+          <th>ISBN</th>
+          <th>가격</th>
+          <th>발행일</th>
+        </tr>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>

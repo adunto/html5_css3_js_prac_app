@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Service</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif; /* 글꼴을 Arial로 설정, Arial이 없으면 기본 sans-serif 글꼴 사용 */
+        margin: 0; /* 브라우저 기본 여백(margin) 제거 */
+        padding: 20px; /* 페이지 전체에 20픽셀의 안쪽 여백(padding) 추가 */
+        background-color: #f5f5f5; /* 배경색을 연한 회색으로 설정 */
+      }
+
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        border-bottom: 2px solid #4740ce;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 30px;
+      }
+
+      input {
+        width: 100%; /* 입력 필드의 너비를 부모 요소의 100%로 설정 */
+        padding: 8px; /* 입력 필드 안쪽에 8픽셀의 여백 추가 */
+        margin-bottom: 15px; /* 입력 필드 아래에 15픽셀의 외부 여백 추가 */
+        border: 1px solid #928989; /* 1픽셀 두께의 중간 회색 테두리 추가 */
+        border-radius: 3px; /* 입력 필드 모서리를 3픽셀만큼 둥글게 만듦 */
+      }
+
+      button {
+        width: 100%;
+        background-color: #215731; /* 버튼 배경색을 파란색으로 설정 */
+        color: white; /* 버튼 텍스트 색상을 흰색으로 설정 */
+        padding: 10px 20px; /* 버튼 안쪽 여백: 위아래 10px, 좌우 20px */
+        border: none; /* 버튼의 기본 테두리 제거 */
+        border-radius: 5px; /* 버튼 모서리를 3픽셀만큼 둥글게 만듦 */
+        cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
+      }
+
+      button:hover {
+        background-color: #3b9757;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Book Service</h1>
+    <div>
+      <h2>책 정보 입력</h2>
+      <form>
+        <div>
+          <label for="book-title">제목</label>
+          <input
+            id="book-title"
+            name="book-title"
+            type="text"
+            placeholder="제목 입력"
+          />
+        </div>
+        <div>
+          <label for="book-author">저자</label>
+          <input
+            id="book-author"
+            name="book-author"
+            type="text"
+            placeholder="저자 입력"
+          />
+        </div>
+        <div>
+          <label for="book-isbn">ISBN</label>
+          <input
+            id="book-isbn"
+            name="book-isbn"
+            type="number"
+            placeholder="ISBN 입력"
+          />
+        </div>
+        <div>
+          <label for="book-price">가격</label>
+          <input
+            id="book-price"
+            name="book-price"
+            type="number"
+            placeholder="가격 입력(원)"
+          />
+        </div>
+        <div>
+          <label for="book-publish-date">발행일</label>
+          <input
+            type="date"
+            id="book-publish-date"
+            name="book-publish-date"
+            placeholder="발행일"
+          />
+        </div>
+        <button type="submit">등록</button>
+      </form>
+
+      <h2>책 목록</h2>
+      <table>
+        <tr>
+          <th>제목</th>
+          <th>저자</th>
+          <th>ISBN</th>
+          <th>가격</th>
+          <th>발행일</th>
+        </tr>
+        <tbody></tbody>
+      </table>
+    </div>
+  </body>
+</html>
