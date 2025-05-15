@@ -5,20 +5,10 @@ const API_BASE_URL = "http://localhost:8085";
 const studentForm = document.getElementById("studentForm");
 const studentTableBody = document.getElementById("studentTableBody");
 
-//학생목록 로드하는 함수
-const loadStudents = async () => {
-    try {
-        console.log("학생 목록 로드 중.....");
-        const response = await fetch(`${API_BASE_URL}/api/students`);
-        const jsonData = await response.json();
-        console.log(jsonData);
-    } catch (e) {
-        console.error(e);
-    }
-};
-
 //Document Load 이벤트 처리하기
-document.addEventListener("DOMContentLoaded", loadStudents);
+document.addEventListener("DOMContentLoaded", function () {
+    loadStudents();
+});
 
 //Form Submit 이벤트 처리하기
 studentForm.addEventListener("submit", function (event) {
@@ -28,9 +18,9 @@ studentForm.addEventListener("submit", function (event) {
 
     //FormData 객체생성 <form>엘리먼트를 객체로 변환
     const stuFormData = new FormData(studentForm);
-    stuFormData.forEach((value, key) => {
-        console.log(key + " = " + value);
-    });
+    // stuFormData.forEach((value, key) => {
+    //     console.log(key + ' = ' + value);
+    // });
 
     //사용자 정의 Student 객체생성 ( 공백 제거 )
     const studentData = {
@@ -47,10 +37,13 @@ studentForm.addEventListener("submit", function (event) {
         //검증체크 실패하면 리턴하기
         return;
     }
+    //유효한 데이터 출력하기
+    console.log(studentData);
 });
 
 //데이터 유효성을 체크하는 함수
 function validateStudent(student) {
+    // 필수 필드 검사
     if (!student.name) {
         alert("이름을 입력해주세요.");
         return false;
@@ -76,7 +69,7 @@ function validateStudent(student) {
         return false;
     }
     // 학번 형식 검사 (예: 영문과 숫자 조합)
-    // const studentNumberPattern = /^[A-Za-z0-9]+$/;
+    //const studentNumberPattern = /^[A-Za-z0-9]+$/;
     const studentNumberPattern = /^s\d{5}$/;
     if (!studentNumberPattern.test(student.studentNumber)) {
         alert("학번은 영문과 숫자만 입력 가능합니다.");
@@ -103,4 +96,55 @@ function validateStudent(student) {
 function isValidEmail(email) {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailPattern.test(email);
+}
+
+//학생목록 로드하는 함수
+function loadStudents() {
+    console.log("학생 목록 로드 중.....");
+    fetch(`${API_BASE_URL}/api/students`) //Promise
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("학생 목록을 불러오는데 실패했습니다!.");
+            }
+            return response.json();
+        })
+        .then(students => renderStudentTable(students))
+        .catch(error => {
+            console.log("Error: " + error);
+            alert("학생 목록을 불러오는데 실패했습니다!.");
+        });
+}
+
+function renderStudentTable(students) {
+    console.log(students);
+    studentTableBody.innerHTML = "";
+
+    students.forEach(student => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+                    <td>${student.name}</td>
+                    <td>${student.studentNumber}</td>
+                    <td>${student.detail ? student.detail.address : "-"}</td>
+                    <td>${
+                        student.detail ? student.detail.phoneNumber : "-"
+                    }</td>
+                    <td>${
+                        student.detail ? student.detail.email || "-" : "-"
+                    }</td>
+                    <td>${
+                        student.detail ? student.detail.dateOfBirth || "-" : "-"
+                    }</td>
+                    <td>
+                        <button class="edit-btn" onclick="editStudent(${
+                            student.id
+                        })">수정</button>
+                        <button class="delete-btn" onclick="deleteStudent(${
+                            student.id
+                        })">삭제</button>
+                    </td>
+                `;
+
+        studentTableBody.appendChild(row);
+    });
 }
