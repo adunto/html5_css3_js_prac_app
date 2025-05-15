@@ -16,11 +16,17 @@ bookForm.addEventListener("submit", (e) => {
   });
 
   const bookData = {
-    title: bFormData.get("book-title").trim(),
-    author: bFormData.get("book-author").trim(),
-    isbn: bFormData.get("book-isbn").trim(),
-    price: bFormData.get("book-price").trim(),
+    title: bFormData.get("book-title")?.trim(),
+    author: bFormData.get("book-author")?.trim(),
+    isbn: bFormData.get("book-isbn")?.trim(),
+    price: bFormData.get("book-price")?.trim(),
     publishDate: bFormData.get("book-publish-date"),
+    language: bFormData.get("language")?.trim(),
+    pageCount: bFormData.get("pageCount")?.trim(),
+    publisher: bFormData.get("publisher")?.trim(),
+    edition: bFormData.get("edition")?.trim(),
+    coverImageUrl: bFormData.get("coverImageUrl")?.trim(),
+    description: bFormData.get("description"),
   };
 
   if (!validateBook(bookData)) {
@@ -70,7 +76,13 @@ const loadBooks = async () => {
         <td>${book.isbn}</td>
         <td>${book.price}</td>
         <td>${book.publishDate}</td>
+        <td>${book.detail.publisher}</td>
       `;
+      row.addEventListener("click", () => {
+        // 책 상세보기 페이지로 이동
+        console.log("책 클릭됨 : " + book.title);
+      });
+      row.style.cursor = "pointer";
       bookTableBody.appendChild(row);
     });
   } catch (e) {

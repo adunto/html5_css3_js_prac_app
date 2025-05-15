@@ -19,6 +19,17 @@ form {
   padding: 30px;
 }
 
+.form-row {
+  display: flex;
+  flex-direction: row; /* 행 방향으로 정렬 */
+  justify-content: space-between; /* 자식 요소 간의 간격을 균등하게 분배 */
+}
+
+.form-group {
+  flex: 1 1 0;
+  margin: 0 25px; /* 오른쪽 여백 추가 */
+}
+
 input {
   width: 100%; /* 입력 필드의 너비를 부모 요소의 100%로 설정 */
   padding: 8px; /* 입력 필드 안쪽에 8픽셀의 여백 추가 */
