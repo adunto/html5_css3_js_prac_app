@@ -130,6 +130,14 @@ function loadStudents() {
         .catch(error => {
             console.log("Error: " + error);
             alert("학생 목록을 불러오는데 실패했습니다!.");
+            showError("학생 목록을 불러오는데 실패했습니다!.");
+            studentTableBody.innerHTML = `
+                <tr>
+                    <td colspan="7" style="text-align: center; color: #dc3545;">
+                        오류: 데이터를 불러올 수 없습니다.
+                    </td>
+                </tr>
+            `;
         });
 }
 
@@ -194,15 +202,14 @@ function createStudent(studentData) {
             return response.json();
         })
         .then(result => {
-            alert("학생이 성공적으로 등록되었습니다!");
+            showSuccess("학생이 성공적으로 등록되었습니다!");
             // studentForm.reset();
             resetForm();
             //목록 새로 고침
             loadStudents();
         })
         .catch(error => {
-            console.log("Error : ", error);
-            alert(error.message);
+            showError(error.message);
         });
 }
 
@@ -213,24 +220,30 @@ function deleteStudent(studentId) {
     }
     fetch(`${API_BASE_URL}/api/students/${studentId}`, {
         method: "DELETE",
-    }).then(async response => {
-        if (!response.ok) {
-            //응답 본문을 읽어서 에러 메시지 추출
-            const errorData = await response.json();
-            //status code와 message를 확인하기
-            if (response.status === 404) {
-                //중복 오류 처리
-                throw new Error(errorData.message || "학생 정보가 없습니다.");
-            } else {
-                //기타 오류 처리
-                throw new Error(
-                    errorData.message || "학생 정보 삭제에 실패했습니다."
-                );
+    })
+        .then(async response => {
+            if (!response.ok) {
+                //응답 본문을 읽어서 에러 메시지 추출
+                const errorData = await response.json();
+                //status code와 message를 확인하기
+                if (response.status === 404) {
+                    //중복 오류 처리
+                    throw new Error(
+                        errorData.message || "학생 정보가 없습니다."
+                    );
+                } else {
+                    //기타 오류 처리
+                    throw new Error(
+                        errorData.message || "학생 정보 삭제에 실패했습니다."
+                    );
+                }
             }
-        }
-        alert("학생이 성공적으로 삭제되었습니다.");
-        loadStudents();
-    });
+            showSuccess("학생이 성공적으로 삭제되었습니다.");
+            loadStudents();
+        })
+        .catch(error => {
+            showError(error.message);
+        });
 }
 
 // 학생 수정전에 데이터 로드하는 함수
@@ -268,8 +281,7 @@ function editStudent(studentId) {
             cancelButton.style.display = "inline-block";
         })
         .catch(error => {
-            console.log("Error : ", error);
-            alert(error.message);
+            showError(error.message);
         });
 }
 
@@ -278,6 +290,7 @@ function resetForm() {
     editingStudentId = null;
     submitButton.textContent = "학생 등록";
     cancelButton.style.display = "none";
+    clearMessages();
 }
 
 // 학생 수정 처리하는 함수
@@ -307,19 +320,31 @@ function updateStudent(studentId, studentData) {
             return response.json();
         })
         .then(result => {
-            alert("학생이 성공적으로 등록되었습니다!");
+            showSuccess("학생이 성공적으로 등록되었습니다!");
             studentForm.reset();
             //목록 새로 고침
             loadStudents();
         })
         .catch(error => {
-            console.log("Error : ", error);
-            alert(error.message);
+            showError(error.message);
         });
 }
 
 // 성공 메세지 출력
+function showSuccess(message) {
+    formError.textContent = message;
+    formError.style.display = "block";
+    formError.style.color = "#28a745";
+}
 
 // 에러 메세지 출력
+function showError(message) {
+    formError.textContent = message;
+    formError.style.display = "block";
+    formError.style.color = "#dc3545";
+}
 
-// 메세지 초기화
+//메시지 초기화
+function clearMessages() {
+    formError.style.display = "none";
+}
