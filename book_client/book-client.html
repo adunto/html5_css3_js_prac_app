@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Book Service</title>
+        <link rel="stylesheet" href="./css/form.css" />
+    </head>
+    <body>
+        <h1>Book Service</h1>
+        <div class="form-container">
+            <h2>책 등록</h2>
+            <form id="book-register-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input
+                            id="title"
+                            name="title"
+                            type="text"
+                            placeholder="제목 입력"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="author">저자</label>
+                        <input
+                            id="author"
+                            name="author"
+                            type="text"
+                            placeholder="저자 입력"
+                        />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="isbn">ISBN</label>
+                        <input
+                            id="isbn"
+                            name="isbn"
+                            type="number"
+                            placeholder="ISBN 입력"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="price">가격</label>
+                        <input
+                            id="price"
+                            name="price"
+                            type="number"
+                            maxlength="13"
+                            placeholder="가격 입력(원)"
+                        />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="publishDate">발행일</label>
+                        <input
+                            type="date"
+                            id="publishDate"
+                            name="publishDate"
+                            placeholder="발행일"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="language">언어</label>
+                        <input type="text" name="language" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pageCount">페이지 수</label>
+                        <input type="number" name="pageCount" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="publisher">출판사</label>
+                        <input type="text" name="publisher" />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edition">에디션</label>
+                        <input type="text" name="edition" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="coverImageUrl">표지 이미지 URL</label>
+                        <input type="url" name="coverImageUrl" />
+                    </div>
+                </div>
+                <div
+                    class="form-group"
+                    style="
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 20px;
+                    "
+                >
+                    <label for="description">설명</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                        cols="50"
+                    ></textarea>
+                </div>
+                <div class="button-group">
+                    <button type="submit" id="register-button">등록</button>
+                    <button
+                        type="button"
+                        class="cancel-btn"
+                        onclick="resetForm()"
+                        style="display: none"
+                    >
+                        취소
+                    </button>
+                </div>
+                <span class="error-message" id="formError"></span>
+            </form>
+
+            <div class="table-container">
+                <h2>책 목록</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>저자</th>
+                            <th>ISBN</th>
+                            <th>가격($)</th>
+                            <th>출판일</th>
+                            <th>출판사</th>
+                            <th>액션</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="./js/loadBooks.js"></script>
+        <script src="./js/printError.js"></script>
+        <script src="./js/createBook.js"></script>
+        <script src="./js/resetForm.js"></script>
+        <script src="./js/updateBook.js"></script>
+        <script src="./js/deleteBook.js"></script>
+    </body>
+</html>
